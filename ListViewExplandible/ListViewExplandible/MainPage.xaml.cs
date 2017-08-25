@@ -13,5 +13,13 @@ namespace ListViewExplandible
         {
             InitializeComponent();
         }
+
+        private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            var vm = BindingContext as MainViewModel;
+            var product = e.Item as Product;
+
+            vm.HideOrShowProduct(product);
+        }
     }
 }

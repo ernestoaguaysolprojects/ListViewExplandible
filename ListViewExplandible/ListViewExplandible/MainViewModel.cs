@@ -17,12 +17,13 @@ namespace ListViewExplandible
             {
                 new Product
                 {
-                    Title = "Remeras"
+                    Title = "Remeras",
+                    IsVisible = false,
                 },
 
                 new Product
                 {
-                    Title = "Zapatos"
+                    Title = "Zapatos",
                 },
 
                 new Product
@@ -30,6 +31,20 @@ namespace ListViewExplandible
                     Title = "Jeans"
                 },
             };
+        }
+
+        public void HideOrShowProduct(Product product)
+        {
+            product.IsVisible = true;
+
+            UpdateProduct(product);
+        }
+
+        private void UpdateProduct(Product product)
+        {
+            var index = Products.IndexOf(product);
+            Products.Remove(product);
+            Products.Insert(index, product);
         }
     }
 }
