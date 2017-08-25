@@ -9,6 +9,8 @@ namespace ListViewExplandible
 {
     public class MainViewModel
     {
+        private Product _oldProduct;
+
         public ObservableCollection<Product> Products { get; set; }
 
         public MainViewModel()
@@ -35,12 +37,27 @@ namespace ListViewExplandible
 
         public void HideOrShowProduct(Product product)
         {
-            product.IsVisible = true;
+            if(_oldProduct == product)
+            {
+                product.IsVisible = !product.IsVisible;
+                UpdateProducts(product);
+            }
+            else
+            {
+                if (_oldProduct != null)
+                {
+                    _oldProduct.IsVisible = false;
+                    UpdateProducts(_oldProduct);
+                }
 
-            UpdateProduct(product);
+                product.IsVisible = true;
+                UpdateProducts(product);
+            }
+
+            _oldProduct = product;
         }
 
-        private void UpdateProduct(Product product)
+        private void UpdateProducts(Product product)
         {
             var index = Products.IndexOf(product);
             Products.Remove(product);
